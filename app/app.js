@@ -14,7 +14,7 @@ const KIND_LABELS = {
 const ROADMAP_STAGES = [
   {
     title: 'Play the story, chapters 1 to 4 and the final mission',
-    text: 'Follow the mission markers through Gone Fishing, the four chapters and the final mission. All 12 story trophies unlock on completion and none can be missed. Do not grind side content yet.',
+    text: 'Follow the mission markers through Gone Fishing, the four chapters and the final mission. All 12 main-story trophies unlock on completion and none can be missed. Do not grind side content yet.',
     ids: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
   },
   {
@@ -24,7 +24,7 @@ const ROADMAP_STAGES = [
   },
   {
     title: 'Finish the contact strands and stranger missions',
-    text: 'Take missions from Andy, Kenton, Billy, Randy and Tyrone whenever their icons appear, and complete 8 stranger strands across Leonida. These unlock gradually, so keep checking the map.',
+    text: 'Take missions from Andy, Kenton, Billy, Randy and Tyrone whenever their icons appear, and complete 8 stranger strands across Leonida. The five contact finales count as story trophies as well, so the story total is 17. These unlock gradually, so keep checking the map.',
     ids: [22, 23, 24, 26, 27, 25, 29],
   },
   {
@@ -44,8 +44,8 @@ const ROADMAP_STAGES = [
   },
   {
     title: 'Mop up the odd and hidden trophies',
-    text: 'The cryptic hidden trophies: a cocktail on Ocean Beach, the showroom smash, the partner trophy, 500 Criminal Profile actions, a second-try success and the mystery event. None is tied to the story, so they can all be done in free roam.',
-    ids: [44, 45, 47, 48, 49, 50],
+    text: 'The cryptic hidden trophies: a cocktail on Ocean Beach, the showroom smash, the partner trophy, 500 Criminal Profile actions, a second-try success and the mystery event, plus One Last Thing for completing 50 challenges, which finishes passively along the way. None is tied to the story, so they can all be done in free roam.',
+    ids: [44, 45, 47, 48, 49, 50, 32],
   },
   {
     title: 'Finish 100% completion, then the platinum',
@@ -122,7 +122,7 @@ function trophyCard(trophy) {
   const desc = document.createElement('p');
   desc.className = 'trophy-desc';
   if (isSpoilerHidden(trophy)) {
-    name.textContent = 'Hidden story trophy';
+    name.textContent = trophy.kind === 'story' ? 'Hidden story trophy' : 'Hidden trophy';
     name.classList.add('spoiler-mask');
     desc.textContent = 'Hidden until earned: turn off “Hide story spoilers” or earn it to reveal its name and description.';
     desc.classList.add('spoiler-mask');
@@ -234,7 +234,12 @@ function renderRoadmap() {
     const label = document.createElement('b');
     label.textContent = `${done}/${stage.ids.length} earned: `;
     names.append(label);
-    names.append(stage.ids.map((id) => byId.get(id).name).join(' · '));
+    // The spoiler setting hides story names everywhere, not just in the
+    // checklist: a hidden, un-earned trophy shows only its masked label here.
+    names.append(stage.ids.map((id) => {
+      const t = byId.get(id);
+      return isSpoilerHidden(t) ? (t.kind === 'story' ? 'Hidden story trophy' : 'Hidden trophy') : t.name;
+    }).join(' · '));
     li.append(h, p, names);
     return li;
   }));
@@ -308,8 +313,6 @@ function applyDemoMode() {
     activeKind = params.get('filter');
     for (const b of document.querySelectorAll('.kind')) b.classList.toggle('active', b.dataset.kind === activeKind);
   }
-  if (params.get('spoiler') === '1') spoilerEl.checked = true;
-  if (params.get('spoiler') === '0') spoilerEl.checked = false;
   if (params.get('guide')) openGuideId = Number(params.get('guide'));
   if (params.get('demo') === '1') {
     // A half-finished run on purpose: no story trophy earned yet, so the
@@ -320,6 +323,10 @@ function applyDemoMode() {
     spoilerEl.checked = true;
     openGuideId = 28;
   }
+  // The spoiler param is read last, so a deep link can override demo mode's
+  // spoiler-on default (e.g. a roadmap screenshot that shows every name).
+  if (params.get('spoiler') === '1') spoilerEl.checked = true;
+  if (params.get('spoiler') === '0') spoilerEl.checked = false;
 }
 
 applyDemoMode();
