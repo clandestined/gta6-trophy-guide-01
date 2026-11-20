@@ -3,23 +3,81 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GTA VI trophy checklist</title>
+<title>Leonida Legend — GTA VI Trophy Guide &amp; Tracker</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <h1>GTA VI trophy checklist</h1>
-  <p id="progress">0 of 55 earned</p>
+<header class="masthead">
+  <div class="masthead-text">
+    <p class="kicker">Grand Theft Auto VI &middot; PlayStation 5 &middot; 100% offline guide</p>
+    <h1>Leonida Legend</h1>
+    <p class="subtitle">Every one of the 55 official PS5 trophies, with an original guide and cited sources for each, a roadmap to the platinum, and a tracker that saves your progress in this browser.</p>
+  </div>
+  <div class="progress-card" id="progressCard">
+    <div class="progress-numbers"><span id="progressCount">0 / 55</span><span id="progressPct">0%</span></div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <p class="progress-grades" id="progressGrades">Platinum 0/1 &middot; Gold 0/2 &middot; Silver 0/6 &middot; Bronze 0/46</p>
+    <p class="progress-note">Progress saves automatically (localStorage). No account, no network.</p>
+  </div>
 </header>
-<div class="controls">
-  <label>Grade <select id="grade"><option value="all">All</option><option value="platinum">Platinum</option><option value="gold">Gold</option><option value="silver">Silver</option><option value="bronze">Bronze</option></select></label>
-  <button id="export" type="button">Export progress</button>
-  <label class="import">Import progress <input id="import" type="file" accept="application/json"></label>
-</div>
-<table>
-  <thead><tr><th>Earned</th><th>Trophy</th><th>Grade</th><th>How to get it</th></tr></thead>
-  <tbody id="rows"></tbody>
-</table>
+
+<nav class="tabs" aria-label="Guide sections">
+  <button type="button" class="tab active" data-tab="checklist">Checklist</button>
+  <button type="button" class="tab" data-tab="roadmap">Roadmap to Platinum</button>
+  <button type="button" class="tab" data-tab="missables">Missables</button>
+</nav>
+
+<section id="tab-checklist" class="tab-panel">
+  <div class="controls">
+    <label class="search">Search <input id="search" type="search" placeholder="Search name or description&hellip;" autocomplete="off"></label>
+    <label>Grade
+      <select id="grade">
+        <option value="all">All grades</option>
+        <option value="platinum">Platinum</option>
+        <option value="gold">Gold</option>
+        <option value="silver">Silver</option>
+        <option value="bronze">Bronze</option>
+      </select>
+    </label>
+    <label class="check"><input id="spoiler" type="checkbox" checked> Hide story spoilers</label>
+    <label class="check"><input id="hideEarned" type="checkbox"> Hide earned</label>
+    <button id="export" type="button">Export progress</button>
+    <label class="import">Import progress <input id="import" type="file" accept="application/json,.json"></label>
+  </div>
+  <div class="kind-filters" id="kindFilters" role="group" aria-label="Filter by kind">
+    <button type="button" class="kind active" data-kind="all">All 55</button>
+    <button type="button" class="kind" data-kind="story">Story</button>
+    <button type="button" class="kind" data-kind="missable">Missable</button>
+    <button type="button" class="kind" data-kind="collectibles">Collectibles</button>
+    <button type="button" class="kind" data-kind="activities">Activities</button>
+    <button type="button" class="kind" data-kind="completion">Completion</button>
+    <button type="button" class="kind" data-kind="online">Online</button>
+  </div>
+  <p class="filter-note" id="filterNote"></p>
+  <ul class="trophy-list" id="trophyList"></ul>
+  <p class="empty" id="emptyState" hidden>No trophies match these filters. Try clearing the search or picking another kind.</p>
+</section>
+
+<section id="tab-roadmap" class="tab-panel" hidden>
+  <h2>Roadmap to the platinum</h2>
+  <p class="section-intro">One playthrough is enough (PowerPyx). Play the story first, protect the one missable trophy as you go, then clean up contacts, activities, collectibles and crime in that order, and finish with 100% completion. PowerPyx rates the platinum 4/10 and about 200 hours.</p>
+  <ol class="roadmap" id="roadmapList"></ol>
+</section>
+
+<section id="tab-missables" class="tab-panel" hidden>
+  <h2>Missable trophies</h2>
+  <p class="section-intro">Only one trophy in the whole list is flagged as possibly missable by the guides. Everything else can be earned after the story in free roam.</p>
+  <div class="missable-warning">
+    <h3>Do it as you go: meditate at every spot</h3>
+    <p>PowerPyx and GTABase both flag <strong>Positive Mental Attitude</strong> (meditate at all 18 spots across Leonida) as the only possibly missable trophy, because one meditation spot can become unavailable later in the story. Meditate at every spot the moment you find it and never leave one for after the story.</p>
+  </div>
+  <ul class="trophy-list" id="missableList"></ul>
+  <p class="missable-note">Story trophies, contact finales, activities, collectibles and crime trophies are all earnable after the final mission, so no backup save is needed for them. Cheats disable trophies and saving (GTABase / TechWiser), so keep cheats off for the whole run.</p>
+</section>
+
+<footer>
+  <p>Sources for the official list: PSNProfiles and Exophase (agreeing on all 55 names, descriptions and grades). Guide tips cross-checked against PowerPyx, GamesRadar+, GTABase and Insider Gaming. Every guide on this page is written in our own words; the trophy names and descriptions are shown exactly as PlayStation publishes them. No Rockstar logo, artwork or game screenshots are used. This guide is unofficial and not affiliated with Rockstar Games or Sony.</p>
+</footer>
 <script type="module" src="app.js"></script>
 </body>
 </html>

@@ -1,7 +1,109 @@
-body { font-family: Arial, sans-serif; margin: 24px; color: #222; }
-header { display: flex; justify-content: space-between; align-items: baseline; }
-.controls { display: flex; gap: 16px; margin: 12px 0; align-items: center; }
-.import input { font-size: 12px; }
-table { border-collapse: collapse; width: 100%; }
-th, td { border-bottom: 1px solid #ddd; padding: 6px 8px; text-align: left; vertical-align: top; white-space: pre-line; }
-th { background: #f2f2f2; }
+/* Leonida Legend: an original sunset look. Deep purple night, hot pink horizon, teal sea. */
+* { box-sizing: border-box; }
+body {
+  font-family: "Segoe UI", Verdana, sans-serif;
+  margin: 0; color: #f4eef7; background: #160f24;
+  line-height: 1.45;
+}
+.masthead {
+  display: flex; flex-wrap: wrap; gap: 24px; justify-content: space-between;
+  padding: 28px 28px 22px;
+  background: linear-gradient(160deg, #2b1155 0%, #7b1e6e 55%, #e2543e 100%);
+  border-bottom: 4px solid #2fd4c4;
+}
+.kicker { margin: 0 0 4px; letter-spacing: 0.12em; text-transform: uppercase; font-size: 12px; color: #ffd9ec; }
+h1 { margin: 0; font-size: 44px; letter-spacing: 0.02em; }
+.subtitle { max-width: 640px; margin: 8px 0 0; color: #ffeef7; }
+.progress-card {
+  background: rgba(10, 5, 20, 0.72); border: 1px solid #2fd4c4; border-radius: 12px;
+  padding: 14px 18px; min-width: 300px; align-self: center;
+}
+.progress-numbers { display: flex; justify-content: space-between; font-size: 22px; font-weight: 700; }
+.progress-bar { height: 12px; background: #3a2358; border-radius: 6px; overflow: hidden; margin: 8px 0; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, #2fd4c4, #ff5ea8); }
+.progress-grades, .progress-note { margin: 4px 0; font-size: 13px; color: #d9c8e8; }
+
+.tabs { display: flex; gap: 8px; padding: 14px 28px 0; }
+.tab {
+  background: #241640; color: #f4eef7; border: 1px solid #5b3a86; border-bottom: none;
+  padding: 10px 18px; font-size: 15px; border-radius: 8px 8px 0 0; cursor: pointer;
+}
+.tab.active { background: #ff5ea8; border-color: #ff5ea8; color: #1c0b2e; font-weight: 700; }
+.tab-panel { padding: 18px 28px 28px; }
+.tab-panel h2 { margin-top: 0; color: #ffd166; }
+.section-intro { max-width: 780px; color: #e6d9f2; }
+
+.controls { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; margin-bottom: 12px; }
+.controls input[type="search"] { padding: 8px; min-width: 240px; border-radius: 6px; border: 1px solid #5b3a86; background: #241640; color: #fff; }
+.controls select { padding: 8px; border-radius: 6px; border: 1px solid #5b3a86; background: #241640; color: #fff; }
+.controls button, .import {
+  background: #2fd4c4; color: #10201d; border: none; border-radius: 6px;
+  padding: 9px 14px; font-weight: 700; cursor: pointer; font-size: 14px;
+}
+.import input { display: none; }
+.check { font-size: 14px; }
+
+.kind-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
+.kind {
+  background: #241640; color: #f4eef7; border: 1px solid #5b3a86;
+  border-radius: 999px; padding: 7px 14px; cursor: pointer; font-size: 14px;
+}
+.kind.active { background: #ffd166; color: #241640; border-color: #ffd166; font-weight: 700; }
+.filter-note { color: #c9b8dd; font-size: 13px; margin: 4px 0 12px; min-height: 18px; }
+
+.trophy-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.trophy {
+  background: #22133a; border: 1px solid #4a2d72; border-radius: 10px; padding: 12px 14px;
+}
+.trophy.earned { border-color: #2fd4c4; background: #173a35; }
+.trophy-top { display: flex; gap: 12px; align-items: flex-start; }
+.trophy input[type="checkbox"] { width: 22px; height: 22px; margin-top: 2px; accent-color: #2fd4c4; flex: none; }
+.trophy-name { font-size: 17px; font-weight: 700; margin: 0; }
+.trophy-desc { margin: 2px 0 0; color: #d9c8e8; }
+.trophy-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.badge {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  border-radius: 4px; padding: 3px 7px;
+}
+.badge.platinum { background: #b8f1ff; color: #0b3d4d; }
+.badge.gold { background: #ffd166; color: #4d3200; }
+.badge.silver { background: #d7dbe2; color: #333a45; }
+.badge.bronze { background: #e09a5f; color: #40220a; }
+.tag { font-size: 12px; background: #3a2358; border-radius: 4px; padding: 3px 7px; color: #e6d9f2; }
+.tag.missable { background: #ff5ea8; color: #fff; font-weight: 700; }
+.tag.hidden { background: #5b3a86; }
+.guide-toggle {
+  margin-top: 10px; background: transparent; color: #2fd4c4; border: 1px solid #2fd4c4;
+  border-radius: 6px; padding: 6px 12px; cursor: pointer; font-size: 14px;
+}
+.guide { margin-top: 10px; background: #160f24; border-left: 3px solid #ffd166; padding: 10px 12px; border-radius: 0 8px 8px 0; }
+.guide p { margin: 0 0 8px; }
+.guide .sources { font-size: 13px; color: #ffd166; margin: 0; }
+.spoiler-mask { color: #9c86b8; font-style: italic; }
+
+.roadmap { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: stage; }
+.roadmap li {
+  background: #22133a; border: 1px solid #4a2d72; border-radius: 10px; padding: 14px 16px;
+  counter-increment: stage; position: relative;
+}
+.roadmap li::before {
+  content: "Stage " counter(stage); display: block; font-size: 12px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: #2fd4c4; font-weight: 700; margin-bottom: 4px;
+}
+.roadmap h3 { margin: 0 0 6px; font-size: 18px; }
+.roadmap p { margin: 0 0 8px; color: #d9c8e8; }
+.roadmap .stage-trophies { font-size: 14px; color: #ffeef7; margin: 0; }
+.roadmap .stage-trophies b { color: #ffd166; }
+
+.missable-warning {
+  background: #4d1030; border: 2px solid #ff5ea8; border-radius: 10px; padding: 14px 16px; margin-bottom: 14px;
+}
+.missable-warning h3 { margin: 0 0 6px; color: #ffb3d4; }
+.missable-note { color: #d9c8e8; max-width: 780px; }
+.empty { color: #c9b8dd; }
+
+footer { padding: 8px 28px 28px; color: #9c86b8; font-size: 13px; max-width: 900px; }
+@media (max-width: 700px) {
+  .masthead, .tab-panel { padding-left: 14px; padding-right: 14px; }
+  h1 { font-size: 32px; }
+}
